@@ -10,3 +10,7 @@ def inicio(request):
     #cursos_listados=Curso.objects.filter(creditos__gte=4) #creditos mayores a cuatro lte para menores a
     #cursos_listados=Curso.objects.filter(nombre__contains='I')
     return render(request, 'paginas/gestion_curso.html',{"cursos":cursos_listados} )
+
+def prueba (request):
+    return render(request, 'paginas/inicio.html')
+    

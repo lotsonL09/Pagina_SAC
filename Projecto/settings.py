@@ -28,7 +28,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
+STATICFILES_DIRS=['C:/Users/willi/Desktop/Pagina web/Projecto/Pagina_app/templates/paginas/static']
 # Application definition
 
 INSTALLED_APPS = [
@@ -56,7 +56,7 @@ ROOT_URLCONF = 'Projecto.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [r'C:\Users\willi\Desktop\Pagina web\Projecto\Pagina_app\templates\paginas'],
+        'DIRS': [r'C:/Users/willi\Desktop/Pagina web/Projecto/Pagina_app/templates/paginas'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
