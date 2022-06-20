@@ -22,4 +22,5 @@ urlpatterns = [
     path('',views.inicio, name='inicio'),
     path('prueba',views.prueba, name='prueba'),
     path('graficos',views.graficos,name='graficos')
+    path('pestaña2',views.pestaña2,nombre='pestaña2')
 ]

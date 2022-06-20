@@ -16,3 +16,6 @@ def prueba (request):
 
 def graficos(request):
     return render(request,'paginas/base.html') #por el momento va a dar la pestaña original del proyecto
+
+def pestaña2(request):
+    return render(request,'pagina/para_graficos.html')
