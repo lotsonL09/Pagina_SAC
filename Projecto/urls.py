@@ -19,8 +19,8 @@ from Pagina_app import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',views.inicio, name='inicio'),
-    path('prueba',views.prueba, name='prueba'),
+    #path('',views.inicio, name='inicio'),
+    path('Prototipos',views.prototipos, name='prototipos'),
     path('graficos',views.graficos,name='graficos'),
     path('pestaña2',views.pestaña_2,name='pestaña2'),
 ]

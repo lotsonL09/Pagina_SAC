@@ -81,7 +81,10 @@
     </script>
 {% endblock %}
 
-{% block grafico_2_T %} 
+
+{% block grafico_2_T %}
+<input id="dato_y" type="hidden" value="{{dato.temperature}}" >
+<input id="dato_x" type="hidden" value="{{dato.time}}" > 
     <div class="container">
         <div class="row">
             <div class="col">
@@ -90,73 +93,61 @@
         </div>
     </div>
 
-    
-    <div class="ld-row">
-        <!-- <label class="ld-label">
-            Enable Polling
-        </label> -->
-        <input type="checkbox" checked="checked" id="enablePolling"/>
-        </div>
-    <div class="ld-row">
-        <!-- <label class="ld-label">
-            Polling Time (Seconds)
-        </label> -->
-        <input class="ld-time-input" type="number" value="1" id="pollingTime"/>
-    </div>
-    <div class="ld-row">
-        <!-- <label class="ld-label">
-            CSV URL
-        </label> -->
-        <input class="ld-url-input" type="text" id="fetchURL"/>
-    </div>
-
-
     <script type="application/javascript">
-        var defaultData = 'https://demo-live-data.highcharts.com/time-data.csv';
-        var urlInput = document.getElementById('fetchURL');
-        var pollingCheckbox = document.getElementById('enablePolling');
-        var pollingInput = document.getElementById('pollingTime');
+        
 
-        function createChart() {
-            Highcharts.chart('container-live', {
-                chart: {
-                    type: 'spline'
-                },
-                title: {
-                    text: 'Live Data'
-                },
-                accessibility: {
-                    announceNewData: {
-                        enabled: true,
-                        minAnnounceInterval: 15000,
-                        announcementFormatter: function (allSeries, newSeries, newPoint) {
-                            if (newPoint) {
-                                return 'New point added. Value: ' + newPoint.y;
-                            }
-                            return false;
-                        }
-                    }
-                },
-                data: {
-                    csvURL: urlInput.value,
-                    enablePolling: pollingCheckbox.checked === true,
-                    dataRefreshRate: parseInt(pollingInput.value, 10)
-                }
-            });
+        window.onload = function () {
 
-            if (pollingInput.value < 1 || !pollingInput.value) {
-                pollingInput.value = 1;
+        var dps = []; // dataPoints
+        var chart = new CanvasJS.Chart("container-live", {
+            title :{
+                text: "Temperatura"
+            },
+            data: [{
+                type: "line",
+                dataPoints: dps
+            }]
+        });
+
+        var xVal = 0;
+        var yVal = 0; 
+        var updateInterval = 1000;
+        var dataLength = 50; // number of dataPoints visible at any point
+        var updateChart = function (count) {
+
+            count = count || 1;
+
+            for (var j = 0; j < count; j++) {
+                yVal= document.getElementById("dato_y").value;
+                yVal=parseFloat(yVal);
+                //xVal=document.getElementById('dato_x').value;
+                //xVal=parseFloat(xVal);
+                //yVal=5; //aquí va la conexión
+                dps.push({
+                    x: xVal,
+                    y: yVal,
+                });
+                xVal++;
             }
+
+            if (dps.length > dataLength) {
+                dps.shift();
+            }
+
+            chart.render();
+        };
+
+        updateChart(dataLength);
+        setInterval(function(){updateChart()}, updateInterval);
+
         }
+        </script>
+        </head>
+        <body>
+        <div id="chartContainer" style="height: 300px; width: 100%;"></div>
+        <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 
-        urlInput.value = defaultData;
 
-        // We recreate instead of using chart update to make sure the loaded CSV
-        // and such is completely gone.
-        pollingCheckbox.onchange = urlInput.onchange = pollingInput.onchange = createChart;
 
-        // Create the chart
-        createChart();
 
-    </script>
 {% endblock %}
