@@ -1,5 +1,7 @@
 from django.shortcuts import render
 from .models import Measurements
+import re
+from datetime import datetime
 
 # Create your views here.
 #def inicio(request):
@@ -15,11 +17,16 @@ def prototipos (request):
     while True:
         datos=Measurements.objects.all()
         cantidad=len(datos)
-        dato_obtenido=Measurements.objects.get(id=cantidad)
+        dato=Measurements.objects.get(id=cantidad)
+        return render(request,'paginas/inicio.html', {'dato':dato})
+
+ # datos=Measurements.objects.all()
+        # cantidad=len(datos)
+        # dato_obtenido=Measurements.objects.get(id=cantidad)
+        # hora=dato_obtenido.time
+        # hora=datetime.strptime(hora,'%H:%M:%S')
         # n=len(temperatura)
         # dato=temperatura.objects.get(id=n)
-        return render(request,'paginas/inicio.html',{'dato':dato_obtenido})
-
 
 def graficos(request):
     return render(request,'paginas/base.html') #por el momento va a dar la pestaña original del proyecto
